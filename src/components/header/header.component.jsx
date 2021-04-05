@@ -8,6 +8,10 @@ import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import { connect } from "react-redux"; // importing connect HOC which connects components to redux store.
+import { createStructuredSelector } from "reselect";
+
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { selectHiddenCart } from "../../redux/cart/cart.selectors";
 
 import "./header.styles.scss";
 
@@ -41,9 +45,9 @@ const Header = ({ currentUser, hidden }) => (
 /* mapStateToProp is one of the parameter passed in connect HOC, which does the work of mapping state stored in redux store with props present in component.
 For example, In current use case it is Mapping currentUser Prop of Header component with currentUser value in redux store state. */
 
-const mapStateToProp = (state) => ({
-  currentUser: state.user.currentUser,
-  hidden: state.cart.hidden,
+const mapStateToProp = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectHiddenCart,
 });
 
 export default connect(mapStateToProp)(Header);
